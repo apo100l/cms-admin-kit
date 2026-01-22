@@ -1,0 +1,18 @@
+{
+  "name": "@apo100l/cms-admin-kit",
+  "version": "1.0.0",
+  "description": "ace-admin-template",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apo100l/cms-admin-kit.git"
+  },
+  "keywords": [],
+  "author": "Aleksandr Apostol, dev@apo100l.ru",
+  "license": "ISC",
+  "homepage": "https://github.com/apo100l/cms-admin-kit#readme"
+}
