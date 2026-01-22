@@ -1,7 +1,7 @@
 {
   "name": "@apo100l/cms-admin-kit",
   "version": "1.0.0",
-  "description": "ace-admin-template",
+  "description": "@apo100l/cms-admin-kit",
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf node_modules package-lock.json",
