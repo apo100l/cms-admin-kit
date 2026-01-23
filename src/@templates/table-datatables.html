@@ -10,13 +10,9 @@
 
     <title>DataTables - Ace Admin</title>
 
-    <!-- include common vendor stylesheets & fontawesome -->
-    <link rel="stylesheet" type="text/css" href="./src/@utils/bootstrap/dist/css/bootstrap.css">
 
-    <link rel="stylesheet" type="text/css" href="./src/@utils/@fortawesome/fontawesome-free/css/fontawesome.css">
-    <link rel="stylesheet" type="text/css" href="./src/@utils/@fortawesome/fontawesome-free/css/regular.css">
-    <link rel="stylesheet" type="text/css" href="./src/@utils/@fortawesome/fontawesome-free/css/brands.css">
-    <link rel="stylesheet" type="text/css" href="./src/@utils/@fortawesome/fontawesome-free/css/solid.css">
+
+
 
 
 
@@ -36,7 +32,7 @@
     <link rel="icon" type="image/png" href="../../assets/favicon.png" />
 
     <!-- "DataTables" page styles, specific to this page for demo only -->
-    <link rel="stylesheet" type="text/css" href="../views/pages/table-datatables/@page-style.css">
+    <link rel="stylesheet" type="text/css" href="./src/views/pages/table-datatables/@page-style.css">
   </head>
 
   <body>
@@ -2937,27 +2933,24 @@
       </div>
     </div>
 
-    <!-- include common vendor scripts used in demo pages -->
-    <script src="./src/@utils/jquery/dist/jquery.js"></script>
-    <script src="./src/@utils/popper.js/dist/umd/popper.js"></script>
-    <script src="./src/@utils/bootstrap/dist/js/bootstrap.js"></script>
+
 
 
     <!-- include vendor scripts used in "DataTables" page. see "/views//pages/partials/table-datatables/@vendor-scripts.hbs" -->
-    <script src="./src/@utils/datatables/media/js/jquery.dataTables.js"></script>
-    <script src="./src/@utils/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
-    <script src="./src/@utils/datatables.net-colreorder/js/dataTables.colReorder.js"></script>
-    <script src="./src/@utils/datatables.net-select/js/dataTables.select.js"></script>
+    <script type="module" src="./src/@utils/datatables/media/js/jquery.dataTables.js"></script>
+    <script type="module" src="./src/@utils/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script type="module" src="./src/@utils/datatables.net-colreorder/js/dataTables.colReorder.js"></script>
+    <script type="module" src="./src/@utils/datatables.net-select/js/dataTables.select.js"></script>
 
 
-    <script src="./src/@utils/datatables.net-buttons/js/dataTables.buttons.js"></script>
-    <script src="./src/@utils/datatables.net-buttons-bs4/js/buttons.bootstrap4.js"></script>
-    <script src="./src/@utils/datatables.net-buttons/js/buttons.html5.js"></script>
-    <script src="./src/@utils/datatables.net-buttons/js/buttons.print.js"></script>
-    <script src="./src/@utils/datatables.net-buttons/js/buttons.colVis.js"></script>
+    <script type="module" src="./src/@utils/datatables.net-buttons/js/dataTables.buttons.js"></script>
+    <script type="module" src="./src/@utils/datatables.net-buttons-bs4/js/buttons.bootstrap4.js"></script>
+    <script type="module" src="./src/@utils/datatables.net-buttons/js/buttons.html5.js"></script>
+    <script type="module" src="./src/@utils/datatables.net-buttons/js/buttons.print.js"></script>
+    <script type="module" src="./src/@utils/datatables.net-buttons/js/buttons.colVis.js"></script>
 
 
-    <script src="./src/@utils/datatables.net-responsive/js/dataTables.responsive.js"></script>
+    <script type="module" src="./src/@utils/datatables.net-responsive/js/dataTables.responsive.js"></script>
 
 
     <!-- include ace.js -->
@@ -2970,7 +2963,7 @@
 
 
     <!-- "DataTables" page script to enable its demo functionality -->
-    <script src="./src/views/pages/table-datatables/@page-script.js"></script>
+
   </body>
 
 

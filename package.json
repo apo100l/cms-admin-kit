@@ -21,9 +21,18 @@
   "license": "ISC",
   "homepage": "https://github.com/apo100l/cms-admin-kit#readme",
   "devDependencies": {
+    "@types/bootstrap": "^5.2.10",
+    "@types/jquery": "^3.5.33",
     "@types/node": "^25.0.10",
+    "@types/popper.js": "^1.10.1",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
     "vite": "^7.3.1"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.1.0",
+    "bootstrap": "^4.6.2",
+    "jquery": "^3.7.1",
+    "popper.js": "^1.16.1"
   }
 }

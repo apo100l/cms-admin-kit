@@ -8555,14 +8555,12 @@
 
 .body-img1 {
   background-color: #424862;
-  background-image: url("../../../assets/image/body-bg-1.html");
   background-attachment: fixed;
   background-repeat: no-repeat;
 }
 
 .body-img2 {
   background-color: #272f53;
-  background-image: url("../../../assets/image/body-bg-2.html");
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;

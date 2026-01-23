@@ -10,13 +10,9 @@
 
     <title>Charts - Ace Admin</title>
 
-    <!-- include common vendor stylesheets & fontawesome -->
-    <link rel="stylesheet" type="text/css" href="./src/@utils/bootstrap/dist/css/bootstrap.css">
 
-    <link rel="stylesheet" type="text/css" href="./src/@utils/@fortawesome/fontawesome-free/css/fontawesome.css">
-    <link rel="stylesheet" type="text/css" href="./src/@utils/@fortawesome/fontawesome-free/css/regular.css">
-    <link rel="stylesheet" type="text/css" href="./src/@utils/@fortawesome/fontawesome-free/css/brands.css">
-    <link rel="stylesheet" type="text/css" href="./src/@utils/@fortawesome/fontawesome-free/css/solid.css">
+
+
 
 
 
@@ -35,7 +31,7 @@
     <link rel="icon" type="image/png" href="../../assets/favicon.png" />
 
     <!-- "Charts" page styles, specific to this page for demo only -->
-    <link rel="stylesheet" type="text/css" href="../views/pages/charts/@page-style.css">
+    <link rel="stylesheet" type="text/css" href="./src/views/pages/charts/@page-style.css">
   </head>
 
   <body>
@@ -2369,20 +2365,17 @@
       </div>
     </div>
 
-    <!-- include common vendor scripts used in demo pages -->
-    <script src="./src/@utils/jquery/dist/jquery.js"></script>
-    <script src="./src/@utils/popper.js/dist/umd/popper.js"></script>
-    <script src="./src/@utils/bootstrap/dist/js/bootstrap.js"></script>
+
 
 
     <!-- include vendor scripts used in "Charts" page. see "/views//pages/partials/charts/@vendor-scripts.hbs" -->
-    <script src="./src/@utils/chart.js/dist/Chart.js"></script>
+    <script type="module" src="./src/@utils/chart.js/dist/Chart.js"></script>
 
 
-    <script src="./src/@utils/flot/dist/es5/jquery.flot.js"></script>
+    <script type="module" src="./src/@utils/flot/dist/es5/jquery.flot.js"></script>
 
 
-    <script src="./src/@utils/chartist/dist/chartist.js"></script>
+    <script type="module" src="./src/@utils/chartist/dist/chartist.js"></script>
 
 
     <script src="../../www.gstatic.com/charts/loader.js"></script>
@@ -2397,7 +2390,7 @@
 
 
     <!-- "Charts" page script to enable its demo functionality -->
-    <script src="./src/views/pages/charts/@page-script.js"></script>
+
   </body>
 
 

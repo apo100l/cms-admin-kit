@@ -10,13 +10,9 @@
 
     <title>Wysiwyg &amp; Markdown - Ace Admin</title>
 
-    <!-- include common vendor stylesheets & fontawesome -->
-    <link rel="stylesheet" type="text/css" href="./src/@utils/bootstrap/dist/css/bootstrap.css">
 
-    <link rel="stylesheet" type="text/css" href="./src/@utils/@fortawesome/fontawesome-free/css/fontawesome.css">
-    <link rel="stylesheet" type="text/css" href="./src/@utils/@fortawesome/fontawesome-free/css/regular.css">
-    <link rel="stylesheet" type="text/css" href="./src/@utils/@fortawesome/fontawesome-free/css/brands.css">
-    <link rel="stylesheet" type="text/css" href="./src/@utils/@fortawesome/fontawesome-free/css/solid.css">
+
+
 
 
 
@@ -37,7 +33,7 @@
     <link rel="icon" type="image/png" href="../../assets/favicon.png" />
 
     <!-- "Wysiwyg & Markdown" page styles, specific to this page for demo only -->
-    <link rel="stylesheet" type="text/css" href="../views/pages/form-wysiwyg/@page-style.css">
+    <link rel="stylesheet" type="text/css" href="./src/views/pages/form-wysiwyg/@page-style.css">
   </head>
 
   <body>
@@ -2246,21 +2242,18 @@
       </div>
     </div>
 
-    <!-- include common vendor scripts used in demo pages -->
-    <script src="./src/@utils/jquery/dist/jquery.js"></script>
-    <script src="./src/@utils/popper.js/dist/umd/popper.js"></script>
-    <script src="./src/@utils/bootstrap/dist/js/bootstrap.js"></script>
+
 
 
     <!-- include vendor scripts used in "Wysiwyg & Markdown" page. see "/views//pages/partials/form-wysiwyg/@vendor-scripts.hbs" -->
-    <script src="./src/@utils/summernote/dist/summernote-lite.js"></script>
+    <script type="module" src="./src/@utils/summernote/dist/summernote-lite.js"></script>
 
-    <script src="./src/@utils/jquery.hotkeys/jquery.hotkeys.js"></script>
-    <script src="./src/@utils/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+    <script type="module" src="./src/@utils/jquery.hotkeys/jquery.hotkeys.js"></script>
+    <script type="module" src="./src/@utils/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
 
 
-    <script src="./src/@utils/markdown/lib/markdown.js"></script>
-    <script src="./src/@utils/bootstrap-markdown/js/bootstrap-markdown.js"></script>
+    <script type="module" src="./src/@utils/markdown/lib/markdown.js"></script>
+    <script type="module" src="./src/@utils/bootstrap-markdown/js/bootstrap-markdown.js"></script>
 
 
     <!-- include ace.js -->
@@ -2273,7 +2266,7 @@
 
 
     <!-- "Wysiwyg & Markdown" page script to enable its demo functionality -->
-    <script src="./src/views/pages/form-wysiwyg/@page-script.js"></script>
+
   </body>
 
 

@@ -13,7 +13,10 @@ const templatesRewritePlugin = (): Plugin => ({
   name: 'templates-rewrite',
   configureServer: (server: ViteDevServer) => {
     server.middlewares.use((req, _res, next) => {
-      console.log(req.url);
+      if (req.url === '/') {
+        _res.writeHead(301, {Location: '/dashboard.html'})
+        return _res.end();
+      }
       if (req.method === 'GET' && req.url?.endsWith('.html') && !req.url?.startsWith('/@templates/') && !req.url?.startsWith('/@templates/')) {
         req.url = `./src/@templates${req.url}`;
       }
@@ -24,6 +27,10 @@ const templatesRewritePlugin = (): Plugin => ({
 
 export default defineConfig({
   root: './',
+  optimizeDeps: {
+    include: ['jquery', 'popper.js'],
+    exclude: ['bootstrap'],
+  },
   publicDir: resolve(__dirname, 'assets'),
   base: '/',
   server,
