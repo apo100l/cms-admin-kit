@@ -2,10 +2,14 @@
   "name": "@apo100l/cms-admin-kit",
   "version": "1.0.0",
   "description": "@apo100l/cms-admin-kit",
-  "main": "index.js",
+  "main": "src/app.ts",
   "scripts": {
     "clean": "rm -rf node_modules package-lock.json",
     "init": "npm install",
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "prepublishOnly": "npm run build",
+    "serve": "vite",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +21,8 @@
   "license": "ISC",
   "homepage": "https://github.com/apo100l/cms-admin-kit#readme",
   "devDependencies": {
+    "@types/node": "^25.0.10",
+    "tsup": "^8.5.1",
     "typescript": "^5.9.3",
     "vite": "^7.3.1"
   }
