@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(E_ALL & ~E_DEPRECATED);
 /*
 |--------------------------------------------------------------------------
 | Register The Laravel Class Loader

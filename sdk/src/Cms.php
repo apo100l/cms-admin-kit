@@ -1,12 +1,12 @@
 <?php
-namespace Apo100l\Sdk;
+namespace Apo100l;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Request;
 
-class AppCms {
+class Cms {
 
     private array $modules = [];
 
@@ -16,9 +16,15 @@ class AppCms {
     {
         $dirs = array_reduce(File::directories(app_path($dir)), fn ($acc, $patch) => array_set($acc, basename($patch), $patch), []);
         ksort($dirs);
-        $callback = fn ($name, $patch) => new \Cms\AppModule($name, $patch);
+        $callback = fn ($name, $patch) => new Cms($name);
         $this->modules = array_map($callback, array_keys($dirs), $dirs);
     }
+
+    public function version(): string
+    {
+        return 'SDK is alive';
+    }
+
 
 
     static function initLocale ()
@@ -29,7 +35,7 @@ class AppCms {
         Carbon::setLocale('ru');
     }
 
-    public function instance(): AppCms
+    public function instance(): Cms
     {
         return $this;
     }
@@ -70,7 +76,7 @@ class AppCms {
         return $assets === false ? '' : $assets;
     }
 
-    function addRoutes(callable $callable, $files = __FILE__, $isAdmin = false): AppCms
+    function addRoutes(callable $callable, $files = __FILE__, $isAdmin = false): Cms
     {
         $patch = implode('.', [($isAdmin ? 'admin' : 'front'), 'routes', currentModule($files)]);
         Event::listen($patch, $callable);

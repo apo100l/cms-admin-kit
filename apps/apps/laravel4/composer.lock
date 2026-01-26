@@ -12,16 +12,20 @@
             "dist": {
                 "type": "path",
                 "url": "/var/www/sdk",
-                "reference": "f507ed3d1badb9e1c8894a93402f7de18f9c159b"
+                "reference": "5bc25e2b398a97ef9a8af3a29a3eea6287b6ffa0"
             },
             "require": {
+                "ext-openssl": "*",
                 "laravel/framework": "4.2.*",
                 "php": ">=7.4"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "apo100l\\Sdk\\": "src/"
+                "files": [
+                    "utils/helpers.php"
+                ],
+                "psr-4": {
+                    "Apo100l\\": "src/"
                 }
             },
             "license": [

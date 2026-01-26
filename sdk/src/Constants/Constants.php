@@ -1,3 +1,52 @@
 <?php
 namespace Apo100l\Sdk\Constants;
-interface Constants extends Common, Cms {}
+interface Constants
+{
+
+    const YES_NO = [0 => 'Нет' , 1 => 'Да'];
+    const PATTER_ID = ['id' => '[0-9]+'];
+    const PER_PAGE = [100, 200, 500];
+    const MESSAGE_ERROR = 'MESSAGE_ERROR';
+    const MESSAGE_WARNING = 'MESSAGE_WARNING';
+    const MESSAGE_SUCCESS = 'MESSAGE_SUCCESS';
+    const MESSAGE_SYSTEM = 'MESSAGE_SYSTEM';
+    const NODE = 'page';
+
+    const NO_NAME = 'Без названия';
+
+    const STATIC = 'static';
+
+    const PAGE_MAIN = 'main';
+
+    const PAGE_404 = '_404_';
+
+    const BLOCK = 'block';
+    const INIT = 'CMS.INIT';
+    const INIT_SYSTEM_MESSAGES = 'CMS.INIT_SYSTEM_MESSAGES';
+    const INIT_TEMPLATES = 'CMS.INIT_TEMPLATES';
+    const INIT_ASSETS = 'CMS.INIT_ASSETS';
+    const INIT_LANG = 'CMS.INIT_LANG';
+    const INIT_AUTH = 'CMS.INIT_AUTH';
+    const INIT_SETTINGS = 'CMS.INIT_SETTINGS';
+    const INIT_SETTINGS_FORM = 'CMS.INIT_SETTINGS_FORM';
+    const INIT_PAGE_FORM = 'CMS.INIT_PAGE_FORM';
+    const INIT_BLOCK_FORM = 'CMS.INIT_BLOCK_FORM';
+    const MODEL = 'CMS.MODEL';
+    const SAVING = 'SAVING';
+    const SAVED = 'SAVED';
+    const INIT_PAGE = 'CMS.INIT_PAGE';
+    const EDIT_PAGE_FORM = 'CMS.EDIT_PAGE_FORM';
+    const EDIT_BLOCK_FORM = 'CMS.EDIT_BLOCK_FORM';
+    const INDEX_PAGE_ALL = 'CMS.INDEX_PAGE_ALL';
+    const INDEX_PAGE = 'CMS.INDEX_PAGE';
+    const COMPILE_CONTENT = 'CMS.COMPILE_CONTENT';
+    const COMPILE_CONTENT_ADMIN = 'CMS.COMPILE_CONTENT_ADMIN';
+
+    const COPY = 'CMS.COPY';
+
+    const PREPEND_MAKE_RESPONSE = 'CMS.PREPEND_MAKE_RESPONSE';
+
+    const PREPEND_JSON_RESPONSE = 'CMS.PREPEND_JSON_RESPONSE';
+
+    const SITEMAP_XML = 'SITEMAP_XML';
+}

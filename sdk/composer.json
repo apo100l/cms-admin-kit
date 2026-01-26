@@ -11,11 +11,15 @@
   ],
   "require": {
     "laravel/framework": "4.2.*",
-    "php": ">=7.4"
+    "php": ">=7.4",
+    "ext-openssl": "*"
   },
   "autoload": {
-    "psr-0": {
-      "Apo100l\\Sdk\\": "src/"
+    "files": [
+      "utils/helpers.php"
+    ],
+    "psr-4": {
+      "Apo100l\\": "src/"
     }
   },
   "minimum-stability": "stable",
