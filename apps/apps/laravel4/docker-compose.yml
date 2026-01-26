@@ -1,0 +1,21 @@
+services:
+  app:
+    container_name: laravel4
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - ./:/var/www/html
+      - ../../../sdk:/var/www/sdk
+    working_dir: /var/www/html
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "
+      if [ -f artisan ]; then
+        php artisan serve --host=0.0.0.0 --port=8000;
+      else
+        echo 'Laravel not installed yet. Container is running.';
+        tail -f /dev/null;
+      fi
+      "

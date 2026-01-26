@@ -6,10 +6,10 @@
   "scripts": {
     "clean": "rm -rf node_modules package-lock.json",
     "init": "npm install",
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "node_modules/.bin/tsup",
+    "dev": "node_modules/.bin/tsup --watch",
     "prepublishOnly": "npm run build",
-    "serve": "vite",
+    "serve": "node_modules/.bin/vite",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

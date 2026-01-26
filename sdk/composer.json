@@ -1,0 +1,27 @@
+{
+  "name": "apo100l/cms-sdk",
+  "description": "Cms SDK for Laravel 4 with Tailwind UI and legacy support",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Aleksandr Apostol",
+      "email": "dev@apo100l.ru"
+    }
+  ],
+  "require": {
+    "laravel/framework": "4.2.*",
+    "php": ">=7.4"
+  },
+  "autoload": {
+    "psr-0": {
+      "Apo100l\\Sdk\\": "src/"
+    }
+  },
+  "minimum-stability": "stable",
+  "config": {
+    "allow-plugins": {
+      "kylekatarnls/update-helper": true
+    }
+  }
+}
