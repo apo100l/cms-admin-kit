@@ -1,10 +1,13 @@
 <?php
 namespace Apo100l;
+use Apo100l\Common\Module;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Request;
+use function Cms\Utils\array2str;
+use function Cms\Utils\get_config;
 
 class Cms {
 
@@ -14,30 +17,37 @@ class Cms {
 
     public function __construct($dir = '@modules')
     {
-        $dirs = array_reduce(File::directories(app_path($dir)), fn ($acc, $patch) => array_set($acc, basename($patch), $patch), []);
+        $dirs = file_exists(app_path($dir)) ? File::directories(app_path($dir)) : [];
+        $dirs = array_reduce($dirs, fn ($acc, $patch) => array_set($acc, basename($patch), $patch), []);
         ksort($dirs);
-        $callback = fn ($name, $patch) => new Cms($name);
+        $callback = fn ($name, $patch) => new Module($name, $patch);
         $this->modules = array_map($callback, array_keys($dirs), $dirs);
     }
 
     public function version(): string
     {
-        return 'SDK is alive';
+        $php = PHP_VERSION;
+        return "SDK is alive for PHP $php";
     }
 
 
 
-    static function initLocale ()
+    static function setLocale ($locale = [LC_ALL => 'ru_RU.UTF-8', LC_TIME => 'ru_RU.UTF-8', 'timezone' => 'Europe/Moscow', 'locale' => 'ru'])
     {
-        setlocale(LC_ALL, 'ru_RU.UTF-8');
-        setlocale(LC_TIME, 'ru_RU.UTF-8');
-        date_default_timezone_set('Europe/Moscow');
-        Carbon::setLocale('ru');
-    }
-
-    public function instance(): Cms
-    {
-        return $this;
+        foreach ($locale as $k => $v) {
+            switch ($k) {
+                case LC_ALL:
+                case LC_TIME:
+                    setlocale($k, $v);
+                    break;
+                case 'locale':
+                    Carbon::setLocale('ru');
+                    break;
+                case 'timezone':
+                    date_default_timezone_set($v);
+                    break;
+            }
+        }
     }
 
     public function init()
@@ -134,6 +144,7 @@ class Cms {
 
     private function getConfigKey($key, $suffix = null): string
     {
-        return \Cms\array2str(array_filter(['cms', $key, $suffix], fn($value) => !empty($value)), '.');
+        $arr = array_filter(['cms', $key, $suffix], fn($value) => !empty($value));
+        return array2str($arr, '.');
     }
 }

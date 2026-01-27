@@ -15,9 +15,6 @@
     "ext-openssl": "*"
   },
   "autoload": {
-    "files": [
-      "utils/helpers.php"
-    ],
     "psr-4": {
       "Apo100l\\": "src/"
     }

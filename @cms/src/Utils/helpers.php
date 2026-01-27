@@ -1,130 +1,106 @@
 <?php
-
+namespace Cms\Utils;
+use Apo100l\Cms;
 use Apo100l\Sdk\Constants;
 use Carbon\Carbon;
+use const Apo100l\Constants\INIT_BLOCK_FORM;
+use const Apo100l\Constants\MESSAGE_ERROR;
+use const Apo100l\Constants\MESSAGE_SUCCESS;
+use const Apo100l\Constants\MESSAGE_WARNING;
+use const Apo100l\Constants\PER_PAGE;
 
-const METHOD_POST = 'POST';
-const METHOD_GET = 'GET';
-const METHOD_PUT = 'PUT';
-const METHOD_DELETE = 'DELETE';
-
-const CMS_SORT_ASC = 'asc';
-
-const CMS_SORT_DESC = 'desc';
-
-if (!function_exists('currentModule')) {
-    function currentModule($file): ?string
-    {
-        $module = array_get(explode('@modules', $file), 1, '');
-        $module = array_first(array_filter(explode('/', $module), fn ($value) => !empty($value)), fn ($value) => true);
-        return $module;
-    }
+function cms_current_module_basename($file, $moduleDir = '@modules'): ?string
+{
+    $module = array_get(explode($moduleDir, $file), 1, '');
+    return array_first(array_filter(explode('/', $module), fn ($value) => !empty($value)), fn ($value) => true);
 }
 
 
-if (!function_exists('uuid')) {
-    function uuid(): ?string
-    {
-        return implode('-', array_map(fn ($key) => mb_strtolower(str_random($key)), [8, 4, 4, 12]));
-    }
+function cms_uuid(): ?string
+{
+    return implode('-', array_map(fn ($key) => mb_strtolower(str_random($key)), [8, 4, 4, 12]));
 }
 
 
-if (!function_exists('isAdmin')) {
-    function isAdmin(): bool
-    {
-        return Cms::isAdmin();
-    }
+function cms_is_admin(): bool
+{
+    return Cms::isAdmin();
 }
 
-if (!function_exists('isDevelopment')) {
-    function isDevelopment(): bool
-    {
-        return Cms::isDevelopment();
-    }
+function cms_is_development(): bool
+{
+    return Cms::isDevelopment();
 }
 
 
-if (!function_exists('assetsVite')) {
-    function assetsVite(): string
-    {
-        return Cms::assetsVite();
-    }
+function cms_assets_vite(): string
+{
+    return Cms::assetsVite();
 }
 
-if (!function_exists('fetchUrlContent')) {
-    function fetchUrlContent($url, $options = [])  {
-        $ch = curl_init();
-        $options = array_merge([
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 10
-        ], $options);
-        foreach ($options as $key => $value) {
-            curl_setopt($ch, $key, $value);
-        }
-        $content = curl_exec($ch);
-        curl_errno($ch) && $content = false;
-        curl_close($ch);
-        return $content;
+function cms_fetch($url, $options = [])  {
+    $ch = curl_init();
+    $options = array_merge([
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 10
+    ], $options);
+    foreach ($options as $key => $value) {
+        curl_setopt($ch, $key, $value);
     }
+    $content = curl_exec($ch);
+    curl_errno($ch) && $content = false;
+    curl_close($ch);
+    return $content;
 }
 
-if (!function_exists('isErrors')) {
-    function isErrors(): bool
-    {
-        return count(array_filter([
-            Constants::MESSAGE_ERROR,
-            Constants::MESSAGE_WARNING,
-            Constants::MESSAGE_SUCCESS],
-            fn ($key) => Session::has($key))) > 0;
-    }
+function cms_is_errors(): bool
+{
+    $err = [
+        MESSAGE_ERROR,
+        MESSAGE_WARNING,
+        MESSAGE_SUCCESS
+    ];
+    $has  = app('session.store')->has;
+    return count(array_filter($err, $has)) > 0;
 }
 
 if (!function_exists('view_admin')) {
     function view_admin(string $key, $data = [], $prefix = 'common'): string
     {
-        return view($key, $data, $prefix, 'admin');
+        return cms_view($key, $data, $prefix, 'admin');
     }
 }
 
-if (!function_exists('view_front')) {
-    function view_front(string $key, $data = [], $prefix = 'common'): string
-    {
-        return view($key, $data, $prefix, 'front');
-    }
+function cms_view_front(string $key, $data = [], $prefix = 'common'): string
+{
+    return cms_view($key, $data, $prefix, 'front');
 }
 
-if (!function_exists('view')) {
-    function view(string $key, $data = [], $prefix = 'common', $mode = null): string
-    {
-        $mode = is_null($mode) ? isAdmin() ? 'admin' : 'front' : $mode;
-        $key = array2str([$mode, $prefix, $key], '.');
-        $view = View::make($key, $data);
-        return $view->render();
-    }
+function cms_view(string $key, $data = [], $prefix = 'common', $mode = null): string
+{
+    $mode = is_null($mode) ? isAdmin() ? 'admin' : 'front' : $mode;
+    $key = array2str([$mode, $prefix, $key], '.');
+    $view = app('view')::make($key, $data);
+    return $view->render();
 }
 
-if (!function_exists('view_exists')) {
-    function view_exists(string $key, $prefix = 'common', $mode = null): bool
-    {
-        $key = array2str([is_null($mode) ? isAdmin() ? 'admin' : 'front' : $mode, $prefix, $key], '.');
-        return View::exists($key);
-    }
+function cms_view_exists(string $key, $prefix = 'common', $mode = null): bool
+{
+    $key = array2str([is_null($mode) ? isAdmin() ? 'admin' : 'front' : $mode, $prefix, $key], '.');
+    return app('view')::exists($key);
 }
 
-if (!function_exists('has_view')) {
-    function has_view(string $key): bool
-    {
-        return View::has($key);
-    }
+function cms_has_view(string $key): bool
+{
+    return app('view')::has($key);
 }
 
 if (!function_exists('view_compile')) {
     function view_compile(string &$view, ?string $event = Constants::COMPILE_CONTENT, $round = 10): string
     {
         foreach (range(1, $round) as $ignored) {
-            event($event, [&$view]);
+            cms_event($event, [&$view]);
         }
         return $view;
     }
@@ -137,17 +113,17 @@ if (!function_exists('view_compile_admin')) {
     }
 }
 
-if (!function_exists('event')) {
-    function event(string $key, $data = [])
-    {
-        return Event::fire($key, $data);
-    }
+function cms_event(...$args)
+{
+    $key = $args[0] ?? null;
+    $data = array_shift($args);
+    return app('events')::fire($key, $data);
 }
 
 if (!function_exists('default_per_page')) {
-    function default_per_page()
+    function default_per_page(): int
     {
-        return array_first(Constants::PER_PAGE, fn () => true);
+        return PER_PAGE[0] ?? 100;
     }
 }
 
@@ -160,39 +136,38 @@ if (!function_exists('get_per_page')) {
     }
 }
 
-if (!function_exists('event_key')) {
-    function event_key(string $key, $prefix = ''): string
-    {
-        return  strtoupper(implode('.', array_filter([$prefix, $key], fn ($key) => !empty($key))));
-    }
+function cms_event_key(string $key, $prefix = ''): string
+{
+    $str = implode('.', array_filter([$prefix, $key], fn ($key) => !empty($key)));
+    return  strtoupper($str);
 }
 
 if (!function_exists('event_init_page_form_node')) {
     function event_init_page_form_node(array $types, callable $callback) {
-        array_map(fn($type) => listen(event_key($type, Constants::INIT_PAGE_FORM), $callback), $types);
+        array_map(fn($type) => listen(cms_event_key($type, Constants::INIT_PAGE_FORM), $callback), $types);
     }
 }
 
 if (!function_exists('event_init_page_form_page')) {
     function event_init_page_form_page(callable $callback) {
-        listen(event_key(Constants::NODE, Constants::INIT_PAGE_FORM), $callback);
+        listen(cms_event_key(Constants::NODE, Constants::INIT_PAGE_FORM), $callback);
     }
 }
 
 if (!function_exists('event_init_page_form_page_type')) {
     function event_init_page_form_page_type(array $types, callable $callback) {
-        array_map(fn($type) => listen(event_key(array2str([$type, Constants::NODE], '.'), Constants::INIT_PAGE_FORM), $callback), $types);
+        array_map(fn($type) => listen(cms_event_key(array2str([$type, Constants::NODE], '.'), Constants::INIT_PAGE_FORM), $callback), $types);
     }
 }
 
 if (!function_exists('event_init_block_form_type')) {
     function event_init_block_form_type(array $types, callable $callback) {
-        array_map(fn($type) => listen(event_key($type, Constants::INIT_BLOCK_FORM), $callback), $types);
+        array_map(fn($type) => cms_listen(cms_event_key($type, Constants::INIT_BLOCK_FORM), $callback), $types);
     }
 }
 if (!function_exists('event_init_block_form')) {
     function event_init_block_form(callable $callback) {
-        listen(Constants::INIT_BLOCK_FORM, $callback);
+        cms_listen(INIT_BLOCK_FORM, $callback);
     }
 }
 if (!function_exists('group_admin_menu_blocks')) {
@@ -227,40 +202,30 @@ if (!function_exists('group_admin_menu_blocks')) {
     }
 }
 
-if (!function_exists('encodeXML')) {
-    function encodeXML(string $value): string
-    {
-        return  htmlentities($value, ENT_XML1);
-    }
+function cms_encode_xml(string $value): string
+{
+    return  htmlentities($value, ENT_XML1);
 }
 
 
-if (!function_exists('listen')) {
-    function listen(string $key, callable $callback, $weight = 0)
-    {
-        return Event::listen($key, $callback, $weight);
-    }
+function cms_listen(string $key, callable $callback, $weight = 0)
+{
+    return app('events')::listen($key, $callback, $weight);
 }
 
-if (!function_exists('filter')) {
-    function filter(string $key, callable $callback)
-    {
-        return Route::filter($key, $callback);
-    }
+function cms_filter(string $key, callable $callback)
+{
+    return app('router')::filter($key, $callback);
 }
 
-if (!function_exists('url_full')) {
-    function url_full(): string
-    {
-        return add_end_slash(URL::full());
-    }
+function cms_url_full(): string
+{
+    return add_end_slash(app('url')::full());
 }
 
-if (!function_exists('url_current')) {
-    function url_current(): string
-    {
-        return add_end_slash(URL::current());
-    }
+function cms_url_current(): string
+{
+    return add_end_slash(URL::current());
 }
 
 if (!function_exists('url_route')) {
@@ -285,7 +250,7 @@ if (!function_exists('add_end_slash')) {
 if (!function_exists('get_config')) {
     function get_config($key, $default = null)
     {
-        return Config::get($key, $default);
+        return app('config')::get($key, $default);
     }
 }
 
@@ -300,10 +265,11 @@ if (!function_exists('array2str')) {
 if (!function_exists('set_config')) {
     function set_config($key, $value = null)
     {
+        $config = app('config');
         if (is_array($key)) {
-            return array_map(fn ($key, $value) => Config::set($key, $value), array_keys($key), $key);
+            return array_map(fn ($key, $value) => $config::set($key, $value), array_keys($key), $key);
         } else {
-            return Config::set($key, $value);
+            return $config::set($key, $value);
         }
     }
 }
@@ -495,8 +461,8 @@ if(!function_exists('boot_creating_uid')) {
 if(!function_exists('boot_save')) {
     function boot_save($model, $type = Constants::SAVING)
     {
-        event(event_key($type, Constants::MODEL), [&$model]);
-        event(event_key(class_basename($model), event_key($type, Constants::MODEL)), [&$model]);
+        cms_event(cms_event_key($type, Constants::MODEL), [&$model]);
+        cms_event(cms_event_key(class_basename($model), cms_event_key($type, Constants::MODEL)), [&$model]);
     }
 }
 
@@ -645,7 +611,7 @@ if(!function_exists('prepare_page')) {
 
 if(!function_exists('add_page_to_index')) {
     function add_page_to_index(Page $model) {
-        event(Constants::INDEX_PAGE, [$model]);
+        cms_event(Constants::INDEX_PAGE, [$model]);
     }
 }
 
@@ -683,7 +649,7 @@ if(!function_exists('get_view_page')) {
         $templates = array_map(fn($value) => array_merge($value, [$mode]), $templates);
         [$key, $prefix] = array_first($templates, fn ($ignored, $value) => call_user_func_array('view_exists', $value),
             [null, null]);
-        return $key ? view($key, compact('page'), $prefix, $mode) : '';
+        return $key ? cms_view($key, compact('page'), $prefix, $mode) : '';
     }
 }
 
@@ -760,20 +726,17 @@ if(!function_exists('get_page_by_id')) {
     }
 }
 
-if(!function_exists('is_external_url')) {
-    function is_external_url($url): array
-    {
-        $target = starts_with($url, 'http') && str_contains($url, domain_url()) < 0 ? '_blank' : '_self';
-        return [$target === '_blank', $target];
-    }
+function cms_is_external_url(string $url): \stdClass
+{
+    $target = starts_with($url, 'http') && str_contains($url, domain_url()) < 0 ? '_blank' : '_self';
+    $isTarget = $target === '_blank';
+    return (object) compact('url', 'isTarget', 'target');
 }
 
 
-if(!function_exists('get_code_block')) {
-    function get_code_block($name, $id = 'id'): string
-    {
-        return "@block[$name=$id]";
-    }
+function cms_get_code_block($name, $id = 'id'): string
+{
+    return "@block[$name=$id]";
 }
 
 if ( ! function_exists('cms_search_site')) {

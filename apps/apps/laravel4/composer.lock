@@ -4,15 +4,15 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e9fe3a34079e93d7a1a9418326facb0",
+    "content-hash": "c69716ed8a54ae7ea33e28f9bb875a94",
     "packages": [
         {
             "name": "apo100l/cms-sdk",
             "version": "dev-main",
             "dist": {
                 "type": "path",
-                "url": "/var/www/sdk",
-                "reference": "5bc25e2b398a97ef9a8af3a29a3eea6287b6ffa0"
+                "url": "/var/www/@cms",
+                "reference": "ce39d4370b5dc306b27f8b65bd087fed29acf698"
             },
             "require": {
                 "ext-openssl": "*",
@@ -21,9 +21,6 @@
             },
             "type": "library",
             "autoload": {
-                "files": [
-                    "utils/helpers.php"
-                ],
                 "psr-4": {
                     "Apo100l\\": "src/"
                 }

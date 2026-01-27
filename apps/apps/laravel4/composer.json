@@ -10,7 +10,7 @@
 	"repositories": [
 		{
 			"type": "path",
-			"url": "/var/www/sdk",
+			"url": "/var/www/@cms",
 			"options": {
 				"symlink": true
 			}
